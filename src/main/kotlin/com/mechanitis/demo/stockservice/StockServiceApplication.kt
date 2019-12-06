@@ -13,6 +13,7 @@ import reactor.core.publisher.Flux
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ThreadLocalRandom
 
 @SpringBootApplication
@@ -40,10 +41,15 @@ class RSocketController(val priceService: PriceService) {
 
 @Service
 class PriceService {
+    private val prices = ConcurrentHashMap<String, Flux<StockPrice>>()
+
     fun generatePrices(symbol: String): Flux<StockPrice> {
-        return Flux
-            .interval(Duration.ofSeconds(1))
-            .map { StockPrice(symbol, randomStockPrice(), now()) }
+        return prices.computeIfAbsent(symbol) {
+            Flux
+                .interval(Duration.ofSeconds(1))
+                .map { StockPrice(symbol, randomStockPrice(), now()) }
+                .share()
+        }
     }
 
     private fun randomStockPrice(): Double {
