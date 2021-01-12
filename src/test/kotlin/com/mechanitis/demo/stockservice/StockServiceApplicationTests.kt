@@ -29,50 +29,16 @@ class StockServiceApplicationTests {
     }
 
     @Test
-    fun contextLoads() {
-    }
-
-    @Test
-    fun testRequestGetsResponse() {
+    fun shouldBeAbleToConnectToTheTopicAndReceivePricesForASymbol() {
         StepVerifier
             .create(requester!!
-                    .route("stockPrices")
-                    .data("SYMB")
-                    .retrieveFlux(StockPrice::class.java).take(1))
+                .route("stockPrices")
+                .data("SYMB")
+                .retrieveFlux(StockPrice::class.java).take(1))
             .expectNextMatches {
                 it.symbol == "SYMB" && it.price != 0.0
             }
             .expectComplete()
             .verify()
-
-    //        StepVerifier
-//            .withVirtualTime {
-//                requester!!
-//                    .route("stockPrices")
-//                    .data("a")
-//                    .retrieveFlux(StockPrice::class.java).take(1)
-//            }
-//            .expectSubscription()
-//            .expectNextMatches {
-//                it.symbol == "a"
-//            }
-//            .verifyComplete()
-
-    }
-
-    @Test
-    internal fun testStepVerifierWithVirtualTime() {
-        StepVerifier
-            .withVirtualTime {
-                Flux.interval(
-                    ofSeconds(1)
-                ).take(2)
-            }
-            .expectSubscription()
-            .expectNoEvent(ofSeconds(1))
-            .expectNext(0L)
-            .thenAwait(ofSeconds(1))
-            .expectNext(1L)
-            .verifyComplete()
     }
 }
