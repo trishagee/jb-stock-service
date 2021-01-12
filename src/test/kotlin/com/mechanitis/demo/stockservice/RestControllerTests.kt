@@ -26,8 +26,10 @@ class RestControllerTests(@Autowired val client: WebTestClient) {
                 .returnResult<StockPrice>().responseBody
 
         stockPrices.test()
-                .expectNextMatches { it.symbol == "a" &&
-                        it.price == 0.0 }
+                .expectNextMatches {
+                    it.symbol == "a" &&
+                            it.price == 0.0
+                }
                 .verifyComplete()
     }
 }
