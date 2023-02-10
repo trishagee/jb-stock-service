@@ -7,7 +7,7 @@
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JVM 17" allPlatforms="JVM [17]" useProjectSettings="false">
         <compilerSettings>
-          <option name="additionalArguments" value="-java-parameters -Xjsr305=strict" />
+          <option name="additionalArguments" value="-java-parameters" />
         </compilerSettings>
         <compilerArguments>
           <option name="jvmTarget" value="17" />
