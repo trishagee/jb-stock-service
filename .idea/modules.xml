@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/stock-service.iml" filepath="$PROJECT_DIR$/stock-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb-stock-service.iml" filepath="$PROJECT_DIR$/jb-stock-service.iml" />
     </modules>
   </component>
 </project>
